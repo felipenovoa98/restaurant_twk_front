@@ -4,32 +4,33 @@
 
 <div>
 
-  <body style="background-color: #99ccff ;">
+<body  style="background-color: #99ccff ;">
     <!-- este es para cambiar el color http://www.htmlcodes.ws/color/html-color-code-generator.cfm?colorName=PowderBlue -->
 
-<h1 style="background-color:#66b3ff;"> RESTAURANT EL HAMBRIENTO </h1>
-
-<h2 style="background-color:#66b3ff;"> POR FAVOR <br>
+   <h1 style="background-color:black;"> RESTAURANT EL HAMBRIENTO </h1>
+   <p style="background-color:black;">ingrese la hora al cual desea reservar la Hora</p>
+<form action="/reservado" method="GET">
+   <h2 style="background-color:black;"> POR FAVOR <br>
    SELECCIONE UNA HORA PARA IR</h2>
-<!-- este es igual que ocupar el <h1> -->
-<!-- es para editar o seleccionar el tiempo -->
-<p style="background-color:#66b3ff;">ingrese la hora al cual desea reservar la Hora</p>
+   <div class="col1">
+      <p style="background-color:black;">Elije un dia</p>
+         <input  type="date" name="diaReserva" id="diaReserva" placeholder="Seleccione un Día" required>
+   </div>
+       <div class="vl"> 
+          <br>
 
-
-
-<p style="background-color:#66b3ff;">Elije un dia</p>
-<input  type="date" name="" id="">
-<!-- es para resetear un boton  -->
-<p style="background-color:#66b3ff;">Fecha</p>
-<input type="time" name="" id=""><br>
-
-<p style="background-color:#66b3ff;">algun comentario para la pagina </p>
- <input v-model="message"> <button>guardar</button><br>
-
-<!-- este input es para seleccionar una semana y año, dia no!!-->
+      <span class="vl-innertext">Y</span>
+    </div>
+   <div class="col2">
+      <p style="background-color:black;">Hora</p> 
+         <input class="horaReserva" type="time" name="horaReserva" id="horaReserva" placeholder="Seleccione una Hora" required><br>
+   </div>  
+   <br>
+      <button type="submit" class="btnsuccess">Entrar</button>
+</form>
 <br>
-        <router-link to="/Reservado" tag="button">Confirmar</router-link  >
 <br>
+   <input v-model="message">
 </body>
 
 
@@ -50,12 +51,26 @@ name: "hola"
 
 <style scoped>
 p {
-  color: black;
+  color: white;
    text-align:unset;
 }
 h1 {
-   color: black;
+   color: white;
    text-align: center;
 }
+.col1 {
+  float: left;
+  width: 50%;
+  margin: auto;
+  padding: 0 50px;
+  margin-top: 6px;
+}
+.col2 {
 
+  float: right;
+  width: 50%;
+  margin: auto;
+  padding: 0 50px;
+  margin-top: 6px;
+}
 </style>

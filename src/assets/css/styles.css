@@ -3,14 +3,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #fdfdfd;
     margin-top: 0px;
   }
 
 
 /* este es el color de fondo de la pag web */
 body {
-    background-color: #99ccff;
+    /* background-color: #fdfeff; */
+    background-image: url("../rest_fondo.jpg");
   }
   
   h1 {
@@ -139,7 +140,7 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
-/* Two-column layout */
+/* columnas de el componente de hola*/
 .col {
   float: left;
   width: 50%;
@@ -227,4 +228,8 @@ input[type=submit]:hover {
 
 a {
   text-decoration: none;
+
+}
+#app {
+  /* background-image: url("../rest_fondo.jpg");} */
 }

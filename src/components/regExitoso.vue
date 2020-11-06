@@ -1,13 +1,11 @@
 <template>
 <div>
 
-  <p>registro </p>
 
 
-      <h1 style="color: black">REGISTRADO  <br>
-            CORRECTAMENTE!!!! </h1>
-
-  
+    <h1 style="color: black">REGISTRADO  <br>
+      CORRECTAMENTE!!!! </h1>
+    <router-link type="button" to="/login">regresar</router-link>
 </div>
 </template>
 
