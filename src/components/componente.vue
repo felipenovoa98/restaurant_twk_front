@@ -27,10 +27,22 @@
 
 
 export default {
-name: "componente",
-var:'hola ',
-message: 'Hello Vue!'
-}
+  props: {
+   message: String,
+   edad: Number,
+   fechaNac: Date,
+
+
+    columnas: {
+      type: Number,
+      default: 4
+    },
+    filas: {
+      type: Number,
+      default: 3
+    }
+  }
+};
 </script>
 
 <style scoped>

@@ -12,6 +12,8 @@
 body {
     /* background-color: #fdfeff; */
     background-image: url("../rest_fondo.jpg");
+    background-repeat: no-repeat;
+    background-size: 1750px 950px;
   }
   
   h1 {
@@ -204,10 +206,10 @@ input[type=submit]:hover {
     text-align: center;
   }
   .btn {
-    border: none; /* Remove borders */
-    color: white; /* Add a text color */
-    padding: 14px 28px; /* Add some padding */
-    cursor: pointer; /* Add a pointer cursor on mouse-over */
+    border: none; 
+    color: white; 
+    padding: 14px 28px;
+    cursor: pointer; 
   }
   
   .success {background-color: #4CAF50;} 
@@ -230,6 +232,6 @@ a {
   text-decoration: none;
 
 }
-#app {
-  /* background-image: url("../rest_fondo.jpg");} */
-}
+
+
+
