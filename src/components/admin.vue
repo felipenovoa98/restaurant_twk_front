@@ -1,16 +1,6 @@
 <template>
   <div>
-    <h1>PAGINA DE ADMINISTRADOR</h1>
-
-    <p>Buscar Usuario</p>
-    <input
-      class="rutIn"
-      type="text"
-      name="Rut"
-      placeholder="Rut Usuario"
-      required
-    />
-    <input type="button" value="Buscar Usuario" />
+    <h3 style="color: black">Tabla de Datos de Usuarios</h3>
     <!-- crear una clase para hacer referencia a style y de alla cambiar color y margenes -->
 
     <br />
@@ -25,91 +15,182 @@
         <th>Correo</th>
         <th>Acción</th>
       </tr>
-        <!-- contenidos de la tabla -->
+      <!-- contenidos de la tabla -->
       <tr v-for="item in usuarios" :key="item.id">
-        <td>{{item.name}}</td>
-        <td>{{item.lastname}}</td>
-        <td>{{item.phone}}</td>
-        <td>{{item.email}}</td>
-        <td><button @click="eliminarUsuario(item.id)">Eliminar</button>
-        <button @click="actualizarUsuario(item.id,item.name,item.lastname,item.phone,item.email,item.password)">Actualizar</button></td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.lastname }}</td>
+        <td>{{ item.phone }}</td>
+        <td>{{ item.email }}</td>
+        <td>
+          <button @click="eliminarUsuario(item.id)">Eliminar</button>
+          <button @click="modal(item)">Actualizar</button>
+        </td>
       </tr>
-      
     </table>
+
+<div v-if="showModal">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
+              <div class="modal-header">
+                <slot name="header"> default header </slot>
+              </div>
+
+              <form action="" class="colu1" method="GET">
+                <p>Nombre:</p>
+                <p>
+                  <!-- debe de estar dentro de un form action="/nombre de la siguiente pagina" -->
+                  <input
+                    type="text"
+                    v-model="usuario.name"
+                    placeholder="Nombre"
+                    required
+                  />
+                </p>
+                <p>Apellido Paterno:</p>
+                <input
+                  type="text"
+                  v-model="usuario.lastname"
+                  placeholder="Apellido"
+                  required
+                />
+                <p>Numero telefono:</p>
+                <input
+                  type="text"
+                  v-model="usuario.phone"
+                  placeholder="Numero Telefono"
+                  required
+                />
+                <p>Correo electronico</p>
+                <input
+                  type="text"
+                  v-model="usuario.email"
+                  placeholder="Correo"
+                  required
+                />
+                <p>Contraseña:</p>
+                <input
+                  type="text"
+                  v-model="usuario.password"
+                  placeholder="Contraseña"
+                  required
+                />
+                <button @click="actualizarUsuario" type="submit" class="Full"> Actualizar </button>
+                <button class="modal-default-button" @click="showModal = false"> Cancelar</button>
+                <br />
+                <br />
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </transition>
+  </div>
+
+    <!-- <div > -->
+    <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
+    <!-- use the modal component, pass in the prop -->
+    <!-- <modal v-if="showModal" @close="showModal = false"> -->
+    <!--
+      you can use custom content here to overwrite
+      default content
+    -->
+    <!-- <h3 slot="header">custom header</h3> -->
+    <!-- </modal> -->
+    <!-- </div>  -->
+    <!-- +++++++++++++++ -->
   </div>
 </template>
 
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   name: "admin",
   data: () => ({
+    showModal: false,
     usuarios: [],
+    usuario: {
+      id:0,
+      name: "",
+      lastname: "",
+      phone: "",
+      email: "",
+      password: "",
+    },
   }),
   methods: {
     obtenerUsuarios() {
       axios
         .get("http://127.0.0.1:8000/api/users")
-        .then((response)=> {
-          this.usuarios=response.data.data;
-         return response;
+        .then((response) => {
+          this.usuarios = response.data.data;
+          console.log(response.data.data);
+          return response;
         })
         // .then((json)=> {
         //   console.log(json);
         // })
-        .catch((error)=> {
+        .catch((error) => {
           // handle error
           console.log(error);
         });
     },
-    eliminarUsuario(id){
+
+    eliminarUsuario(id) {
       axios
-      .delete(`http://127.0.0.1:8000/api/users/${id}`)
-      // el then es el que recibe la respuesta de la petición
-      .then(() => {this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);});
+        .delete(`http://127.0.0.1:8000/api/users/${id}`)
+        // el then es el que recibe la respuesta de la petición
+        .then(() => {
+          this.usuarios = this.usuarios.filter((usuario) => usuario.id !== id);
+        });
 
       // .then((response)=>{
       //   console.log(response);
-        alert("Usuario Eliminado");
+      alert("Usuario Eliminado");
       // });
     },
-  actualizarUsuario(id,name,lastname,phone,email,password){
-    const usuario={
-      id:id,
-      name:name,
-      lastname:lastname,
-      phone:phone,
-      email:email,
-      password:password
-    };
-    axios.put('http://127.0.0.1:8000/api/users/'+usuario.id,usuario)
-    .then(response=>{
-      this.usuarios.push(response.data.data);
-      this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
-    })
-  }
 
+    actualizarUsuario(e) {
+      e.preventDefault();
+    axios
+    .put(`http://127.0.0.1:8000/api/users/${this.usuario.id}`, this.usuario)
+    .then((response) => {
+      console.log(response)
+    });
+    },
+
+    modal(item) {
+      this.usuario.id=item.id;
+      this.usuario.name = item.name;
+      this.usuario.lastname = item.lastname;
+      this.usuario.phone = item.phone;
+      this.usuario.email = item.email;
+      this.usuario.password = item.password;
+      this.showModal = true;
+    },
+
+    agregarUsuario(id, name, lastname, phone, email, password) {
+      const newUsuario = {
+        id: id,
+        name: name,
+        lastname: lastname,
+        phone: phone,
+        email: email,
+        password: password,
+      };
+      axios
+        .post("http://127.0.0.1:8000/api/users/" + newUsuario.id, newUsuario)
+        .then((response) => {
+          this.usuarios.post(response.data.data);
+          alert("Usuario Actualizado");
+        });
+    },
   },
-      agregarUsuario(id,name,lastname,phone,email,password){
-    const newUsuario={
-      id:id,
-      name:name,
-      lastname:lastname,
-      phone:phone,
-      email:email,
-      password:password
-    };
-    axios.post('http://127.0.0.1:8000/api/users/'+newUsuario.id,newUsuario)
-    .then(response=>{
-      this.usuarios.post(response.data.data);
-      alert("Usuario Actualizado");
-    })
-  },
-  mounted(){
+  mounted() {
     this.obtenerUsuarios();
   },
-  
 };
 </script>
 
@@ -139,6 +220,69 @@ th {
 
 tr:nth-child(even) {
   background-color: #615b5b;
+}
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 500px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+.colu1 {
+  float: auto;
+  color: #42b983;
+  width: 50%;
+  margin: auto;
+  padding: 0px 20px;
+  margin-top: 2px;
 }
 </style>
 

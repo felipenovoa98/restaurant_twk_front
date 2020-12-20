@@ -86,10 +86,75 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  props: {
-    title: String,
+  name: "admin",
+  data: () => ({
+    usuarios: [],
+  }),
+  methods: {
+    obtenerUsuarios() {
+      axios
+        .get("http://127.0.0.1:8000/api/users")
+        .then((response)=> {
+          this.usuarios=response.data.data;
+         return response;
+        })
+        // .then((json)=> {
+        //   console.log(json);
+        // })
+        .catch((error)=> {
+          // handle error
+          console.log(error);
+        });
+    },
+    eliminarUsuario(id){
+      axios
+      .delete(`http://127.0.0.1:8000/api/users/${id}`)
+      // el then es el que recibe la respuesta de la petición
+      .then(() => {this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);});
+
+      // .then((response)=>{
+      //   console.log(response);
+        alert("Usuario Eliminado");
+      // });
+    },
+  actualizarUsuario(id,name,lastname,phone,email,password){
+    const usuario={
+      id:id,
+      name:name,
+      lastname:lastname,
+      phone:phone,
+      email:email,
+      password:password
+    };
+    axios.put('http://127.0.0.1:8000/api/users/'+usuario.id,usuario)
+    .then(response=>{
+      this.usuarios.push(response.data.data);
+      this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
+    })
+  }
+
   },
+      agregarUsuario(id,name,lastname,phone,email,password){
+    const newUsuario={
+      id:id,
+      name:name,
+      lastname:lastname,
+      phone:phone,
+      email:email,
+      password:password
+    };
+    axios.post('http://127.0.0.1:8000/api/users/'+newUsuario.id,newUsuario)
+    .then(response=>{
+      this.usuarios.post(response.data.data);
+      alert("Usuario Actualizado");
+    })
+  },
+  mounted(){
+    this.obtenerUsuarios();
+  },
+  
 };
 </script>
 <style scoped>

@@ -13,6 +13,7 @@ import Reservado from './components/Reservado.vue';
 import register from './components/register.vue';
 import regExitoso from './components/regExitoso.vue';
 import loginadmin from './components/loginadmin.vue';
+import pruebaModel from './components/prueba/pruebaModel.vue';
 
 
 Vue.config.productionTip = false
@@ -33,6 +34,7 @@ const routes = [
   {path: '/register', component:register},
   {path: '/regExitoso', component:regExitoso},
   {path: '/admin', component:loginadmin},
+  {path: '/modal', component:pruebaModel},
 ]
 
 const router= new VueRouter({
