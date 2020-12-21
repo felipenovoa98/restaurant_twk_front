@@ -10,51 +10,45 @@
           POR FAVOR <br />
           SELECCIONE UNA HORA PARA IR
         </h2>
-        <div class="col1">
-          <p>Elije un dia</p>
+
+        <div></div>
+        <div class="col2">
+          <!-- el type datatime-local es para la fecha y hora en el mismo campo -->
+          <!-- <input data-date-format="YYYY MMMM DD, h:mm:ss" type="datetime-local"  value=""  required> -->
+        </div>
+
+        <form name="formulario" method="post" action="">
+          <!-- Campo de entrada de fecha -->
+          Selecciona la fecha deseada:
+
           <input
             type="date"
             v-model="fecha"
-            placeholder="Seleccione un Día"
-            required
+            data-date-format="YYYY MMMM DD, h:mm:ss"
           />
-        </div>
+          <!-- Campo de entrada de hora -->
+          Selecciona la hora deseada:
 
-        <div class="vl">
-          <br />
+          <input type="time" v-model="hora" />
+          <button @click="agregarReserva" type="submit" class="btnsuccess">
+            Reservar
+          </button>
+        </form>
 
-          <br /><br /><br /><br />
-          <span class="vl-innertext">Y</span><br /><br /><br />
-        </div>
-        <div></div>
-        <div class="col2">
-          <p>Hora</p>
-          <input
-            class="hora"
-            type="time"
-            v-model="hora"
-            placeholder="Seleccione una Hora"
-            required
-          /><br />
-          <button @click="agregarReserva" type="submit" class="btnsuccess">Reservar</button>
-        </div>
-        <br />
-      </form>
-
-      <form>
         <div>
           <br />
-          Elige un Tipo de Mesa
-          <br />
-          <select>
-            <option value="tipoMesaind">Mesa Individual: 1P</option>
-            <option value="tipoMesaXl">Mesa Para Dos: 2P</option>
-            <option value="tipoMesaXl">Mesa Reunion: 4P</option>
-            <option value="tipoMesaXl">Mesa Familiar: 6P</option>
-            <option value="tipoMesaXl">Mesa XL: 10P</option>
+          Elige un Tipo de Mesa {{ reserva.mesa_id }}
+
+          <select v-model="reserva.mesa_id">
+            <option value="1">1: Mesa Individual: 1P</option>
+            <option value="2">2: Mesa Para Dos: 2P</option>
+            <option value="3">3: Mesa Reunion: 4P</option>
+            <option value="4">4: Mesa Familiar: 6P</option>
+            <option value="5">5: Mesa XL: 10P</option>
           </select>
         </div>
       </form>
+
       <br />
       <br />
     </body>
@@ -66,22 +60,25 @@ import axios from "axios";
 export default {
   name: "hola",
   data: () => ({
-    fecha:'',
-    hora:'',
+    id_user: 0,
+    fecha: null,
+    hora: null,
     reserva: {
-    fechaReserva:this.fecha+' '+ this.hora,
-        mesa_id: '',
-        user_id: '',
-      },
-      }),
-  mounted(){
-  // aqui se recibe el parametro de el otro componente de register
-    console.log( this.$route.params)
+      fechaReserva: "",
+      mesa_id: 0,
+      user_id: 0,
+    },
+  }),
+  mounted() {
+    this.id_user = this.$route.params.usuario;
+    // console.log( this.$route.params.usuario)
   },
   methods: {
     agregarReserva(e) {
       e.preventDefault();
-
+      this.reserva.fechaReserva = this.fecha+ ' '+this.hora;
+      this.reserva.user_id =this.id_user;
+      //  let año =this.fecha.split('-');
       axios
         .post("http://127.0.0.1:8000/api/reserva", this.reserva)
         .then((response) => {
@@ -93,10 +90,8 @@ export default {
           }
         });
     },
-
-  }
-
-}
+  },
+};
 
 //esta da referencia a como se llama la carpeta y esta carpeta se llama "hola"
 </script>
@@ -130,6 +125,5 @@ h1 {
 .colorHora {
   color: rgb(41, 12, 12);
 }
-
 </style>
   

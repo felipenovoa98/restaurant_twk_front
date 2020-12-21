@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <form action="/action_page.php">
+      <form action="">
         <div class="row">
           <br />
           <br />
@@ -35,22 +35,21 @@
           <div class="col">
             <div class="hide-md-lg"></div>
             INGRESA TU CUENTA <br />
-            <form action="/hola" method="GET">
+            <form action="" method="GET">
               <input
                 type="text"
-                name="usuario"
-                placeholder="Usuario"
+               v-model="usuario.email"
+                placeholder="Email"
                 required
               /><br /><br />
               <input
                 type="password"
-                name="contraseña"
+                v-model="usuario.password"
                 placeholder="Contraseña"
                 required
               /><br /><br />
-              <button type="submit" class="btnsuccess">Entrar</button>
+              <button type="submit" @click="login" class="btnsuccess">Entrar</button>
             </form>
-            <!-- <router-link to="/hola">Entrar</router-link> es para ingresar directamente a otra pagina -->
             <!-- iniciar entre paginas  -->
             <br />
             <br />
@@ -91,6 +90,10 @@ export default {
   name: "admin",
   data: () => ({
     usuarios: [],
+    usuario:{
+    password:'',
+    email:'',
+},
   }),
   methods: {
     obtenerUsuarios() {
@@ -133,8 +136,24 @@ export default {
       this.usuarios.push(response.data.data);
       this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
     })
-  }
-
+  },
+  
+  login(e){
+    e.preventDefault();
+  axios.post('http://127.0.0.1:8000/api/login/',this.usuario)
+    .then(response=>{
+      if(response.data.user_id)
+          {
+            let id= response.data.user_id;
+            this.$router.push({name:"hola",params:{usuario: id}});
+            // se hace el push a otro componente y se le entrega un parametro
+          }
+          else{
+            alert("No Registrado :C")
+          }
+    })
+  },
+  
   },
       agregarUsuario(id,name,lastname,phone,email,password){
     const newUsuario={
@@ -150,7 +169,9 @@ export default {
       this.usuarios.post(response.data.data);
       alert("Usuario Actualizado");
     })
+
   },
+
   mounted(){
     this.obtenerUsuarios();
   },

@@ -76,7 +76,8 @@ export default {
           
           if(response.data.created)
           {
-            this.$router.push({name:"hola",params:{id_usuario:response.data.user_id}});
+            let id= response.data.user_id;
+            this.$router.push({name:"hola",params:{usuario:id}});
             // se hace el push a otro componente y se le entrega un parametro
           console.log(response.data)}
           else{
