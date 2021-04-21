@@ -87,19 +87,7 @@
         </div>
       </transition>
   </div>
-
-    <!-- <div > -->
-    <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
-    <!-- use the modal component, pass in the prop -->
-    <!-- <modal v-if="showModal" @close="showModal = false"> -->
-    <!--
-      you can use custom content here to overwrite
-      default content
-    -->
-    <!-- <h3 slot="header">custom header</h3> -->
-    <!-- </modal> -->
-    <!-- </div>  -->
-    <!-- +++++++++++++++ -->
+  
   </div>
 </template>
 
@@ -110,7 +98,9 @@ export default {
   name: "admin",
   data: () => ({
     showModal: false,
+    // arreglo o Array
     usuarios: [],
+    // variable llamado usuario (objeto)
     usuario: {
       id:0,
       name: "",
@@ -151,7 +141,7 @@ export default {
       alert("Usuario Eliminado");
       // });
     },
-
+// este es para actualizar usuario un objeto con sus datos llamandolo con el this.usuario
     actualizarUsuario(e) {
       e.preventDefault();
     axios
@@ -160,7 +150,7 @@ export default {
       console.log(response)
     });
     },
-
+// se le dan todos los item 
     modal(item) {
       this.usuario.id=item.id;
       this.usuario.name = item.name;
@@ -170,7 +160,7 @@ export default {
       this.usuario.password = item.password;
       this.showModal = true;
     },
-
+// aqui agregamos un usuario con sus datos respectivos para luego ser guardados por axios y laravel en la base de datos
     agregarUsuario(id, name, lastname, phone, email, password) {
       const newUsuario = {
         id: id,
@@ -184,7 +174,7 @@ export default {
         .post("http://127.0.0.1:8000/api/users/" + newUsuario.id, newUsuario)
         .then((response) => {
           this.usuarios.post(response.data.data);
-          alert("Usuario Actualizado");
+          alert("Usuario Nuevo");
         });
     },
   },

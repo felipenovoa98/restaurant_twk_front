@@ -2,10 +2,12 @@
   <div class="fondo">
     <h1>Registrate!</h1>
     <div>
+      <!-- este es un form para hacer un fromulario que contenga los datos  -->
       <form action= "" class="colu1" method="GET">
         <p>Nombre:</p>
         <p>
           <!-- debe de estar dentro de un form action="/nombre de la siguiente pagina" -->
+          <!-- se llaman los datos de data con el v-model  -->
           <input
             type="text"
             v-model="usuario.name"
@@ -55,6 +57,7 @@
 <script>
 import axios from "axios";
 export default {
+  // esta es la funcion data que encapsula a un arreglo llamado registroUsuario y creo una lista llamado usuario con sus datos que serán llamados mas arriba
   name: "register",
   data: () => ({
     registroUsuario: [],
@@ -67,26 +70,30 @@ export default {
       },
   }),
   methods: {
+    // creo una funcion que llama al prevent default que Cancela el evento si este es cancelable, sin detener el resto del funcionamiento del evento
     agregarUsuario(e) {
       e.preventDefault();
 
       axios
         .post("http://127.0.0.1:8000/api/users",this.usuario )
         .then((response) => {
-          
+          // el siguiente if responde a una creacion de usuario 
           if(response.data.created)
           {
+            // lado bueno que hace que cree al usuario llamando a los datos de usuario:
             let id= response.data.user_id;
             this.$router.push({name:"hola",params:{usuario:id}});
             // se hace el push a otro componente y se le entrega un parametro
           console.log(response.data)}
           else{
             alert("Usuario no Registrado")
+            // muestra un mensaje que no fue creado
           }
         });
     },
   },
 };
+// en este style muestra un diseño de la pagina
 </script>
 <style scoped>
 .colu1 {

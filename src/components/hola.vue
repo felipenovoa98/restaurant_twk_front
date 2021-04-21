@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- este componente es para hacer la reserva -->
     <body style="background-color: #99ccff">
       <!-- este es para cambiar el color http://www.htmlcodes.ws/color/html-color-code-generator.cfm?colorName=PowderBlue -->
       <h1 style="background-color: black">RESTAURANT EL HAMBRIENTO</h1>
@@ -17,10 +18,9 @@
           <!-- <input data-date-format="YYYY MMMM DD, h:mm:ss" type="datetime-local"  value=""  required> -->
         </div>
 
-        <form name="formulario" method="post" action="">
+      
           <!-- Campo de entrada de fecha -->
           Selecciona la fecha deseada:
-
           <input
             type="date"
             v-model="fecha"
@@ -28,17 +28,12 @@
           />
           <!-- Campo de entrada de hora -->
           Selecciona la hora deseada:
-
+          <!-- es el boton que guarda y redericciona a la otra pagina -->
           <input type="time" v-model="hora" />
-          <button @click="agregarReserva" type="submit" class="btnsuccess">
-            Reservar
-          </button>
-        </form>
-
         <div>
           <br />
-          Elige un Tipo de Mesa {{ reserva.mesa_id }}
-
+          Elige un Tipo de Mesa
+<!-- son las opciones que tiene para elegir alguna mesa  -->
           <select v-model="reserva.mesa_id">
             <option value="1">1: Mesa Individual: 1P</option>
             <option value="2">2: Mesa Para Dos: 2P</option>
@@ -46,7 +41,10 @@
             <option value="4">4: Mesa Familiar: 6P</option>
             <option value="5">5: Mesa XL: 10P</option>
           </select>
-        </div>
+        </div><br><br>
+          <button @click="agregarReserva" type="submit" class="btnsuccess">
+            Reservar 
+          </button>
       </form>
 
       <br />
@@ -69,6 +67,7 @@ export default {
       user_id: 0,
     },
   }),
+  // 
   mounted() {
     this.id_user = this.$route.params.usuario;
     // console.log( this.$route.params.usuario)
@@ -76,6 +75,7 @@ export default {
   methods: {
     agregarReserva(e) {
       e.preventDefault();
+      // aqui guardo la fecha y la hora en fechaReserva
       this.reserva.fechaReserva = this.fecha+ ' '+this.hora;
       this.reserva.user_id =this.id_user;
       //  let año =this.fecha.split('-');

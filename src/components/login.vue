@@ -35,6 +35,7 @@
           <div class="col">
             <div class="hide-md-lg"></div>
             INGRESA TU CUENTA <br />
+            <!-- este form es para hacer un iniciar sesion mediante el email  -->
             <form action="" method="GET">
               <input
                 type="text"
@@ -85,6 +86,7 @@
 </template>
 
 <script>
+// importamos el axios para ser llamado mas abajo
 import axios from 'axios'
 export default {
   name: "admin",
@@ -98,6 +100,7 @@ export default {
   methods: {
     obtenerUsuarios() {
       axios
+      // "http://127.0.0.1:8000/api/users" es la ruta de usuario para hacer el CRUD
         .get("http://127.0.0.1:8000/api/users")
         .then((response)=> {
           this.usuarios=response.data.data;
@@ -122,6 +125,7 @@ export default {
         alert("Usuario Eliminado");
       // });
     },
+    // lo que hace esta funcion es actualizar los usuarios los datos que se actualizarán
   actualizarUsuario(id,name,lastname,phone,email,password){
     const usuario={
       id:id,
@@ -131,13 +135,14 @@ export default {
       email:email,
       password:password
     };
+    // el axios llama a put para hacer una actualizacion del usuario
     axios.put('http://127.0.0.1:8000/api/users/'+usuario.id,usuario)
     .then(response=>{
       this.usuarios.push(response.data.data);
       this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
     })
   },
-  
+  // 
   login(e){
     e.preventDefault();
   axios.post('http://127.0.0.1:8000/api/login/',this.usuario)
@@ -155,6 +160,7 @@ export default {
   },
   
   },
+  // el agregar usuario tiene sus datos dentro de su funcion y es llamado en un pos para que lo 
       agregarUsuario(id,name,lastname,phone,email,password){
     const newUsuario={
       id:id,
@@ -167,7 +173,7 @@ export default {
     axios.post('http://127.0.0.1:8000/api/users/'+newUsuario.id,newUsuario)
     .then(response=>{
       this.usuarios.post(response.data.data);
-      alert("Usuario Actualizado");
+      alert("Usuario Creado");
     })
 
   },

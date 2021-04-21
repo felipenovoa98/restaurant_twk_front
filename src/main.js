@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 
 // import BootstrapVue from 'bootstrap-vue'
-
+// se importan los componentes y su ruta 
 import VueRouter from 'vue-router';
 import login from './components/login.vue';
 import hola from './components/hola.vue';
@@ -18,12 +18,7 @@ import pruebaModel from './components/prueba/pruebaModel.vue';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
-// Vue.use(BootstrapVue);
 
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/css/bootstrap-vue.css'
-// los path son los google/ lo que se escribe en el buscador del link 
-// {path: },
 const routes = [
   {path: '/',component:inicio},
   {path: '/login/',name:'login', component:login},
@@ -36,6 +31,8 @@ const routes = [
   {path: '/admin', component:loginadmin},
   {path: '/modal', component:pruebaModel},
 ]
+// aqui va las rutas como la url donde se van dirigidos los componentes
+
 
 const router= new VueRouter({
   routes,
