@@ -14,14 +14,10 @@
          <router-link class="btnAdmin" to="/admin">Entrar como Administrador</router-link><br />
       </form>
 
-
-</div>  
+</div>
+  
 </div>
 </template>
-
-
-
-
 
 
 <script>
@@ -35,9 +31,6 @@ export default {
   }
 }
 </script>
-
-
-
 
 
 <style scoped>

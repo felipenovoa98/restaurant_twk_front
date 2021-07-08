@@ -8,6 +8,7 @@ import login from './components/login.vue';
 import hola from './components/hola.vue';
 import componente from './components/componente.vue';
 import inicio from './components/inicio.vue';
+import listaReserva from './components/listaReserva.vue';
 import admin from './components/admin.vue';
 import Reservado from './components/Reservado.vue';
 import register from './components/register.vue';
@@ -30,6 +31,7 @@ const routes = [
   {path: '/regExitoso', component:regExitoso},
   {path: '/admin', component:loginadmin},
   {path: '/modal', component:pruebaModel},
+  {path: '/listaReserva', component:listaReserva},
 ]
 // aqui va las rutas como la url donde se van dirigidos los componentes
 

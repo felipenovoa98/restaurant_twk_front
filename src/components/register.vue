@@ -1,49 +1,51 @@
 <template>
   <div class="fondo">
-    <h1>Registrate!</h1>
+    <h1 >Registrate!</h1>
     <div>
       <!-- este es un form para hacer un fromulario que contenga los datos  -->
       <form action= "" class="colu1" method="GET">
-        <p>Nombre:</p>
+        <p style="color: blue">Nombre:</p >
         <p>
           <!-- debe de estar dentro de un form action="/nombre de la siguiente pagina" -->
           <!-- se llaman los datos de data con el v-model  -->
           <input
             type="text"
             v-model="usuario.name"
+            style="color: black"
             placeholder="Nombre"
             required
           />
         </p>
-        <p>Apellido Paterno:</p>
+        <p style="color: blue">Apellido Paterno:</p>
         <input
           type="text"
           v-model="usuario.lastname"
           placeholder="Apellido"
           required
         />
-        <p>Numero telefono:</p>
+        <p style="color: blue">Numero telefono:</p>
         <input
           type="text"
           v-model="usuario.phone"
           placeholder="Numero Telefono"
           required
         />
-        <p>Correo electronico</p>
+        <p style="color: blue">Correo electronico</p>
         <input
           type="text"
           v-model="usuario.email"
           placeholder="Correo"
           required
         />
-        <p>Contraseña:</p>
+        <p style="color: blue">Contraseña:</p>
         <input
           type="password"
+          
           v-model="usuario.password"
           placeholder="Contraseña"
           required
         />
-        <button @click="agregarUsuario" type="submit" class="Full">Registrar</button>
+        <button @click="agregarUsuario" style="color: blue" type="submit" class="Full">Registrar</button>
         <br />
 
         <br />

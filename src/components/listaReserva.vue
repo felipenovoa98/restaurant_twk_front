@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h3 style="color: white">Tabla de Datos de Usuarios</h3>
+<div>Hola mudno</div>
+  <h1>hola  </h1>
+    <h3 style="color: black">Tabla de Datos de Usuarios</h3>
     <!-- crear una clase para hacer referencia a style y de alla cambiar color y margenes -->
 
     <br />
@@ -10,18 +12,17 @@
       <tr>
         <!-- titulos de tabla -->
         <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Teléfono</th>
+        <th>fecha Reserva</th>
+        <th>hora</th>
         <th>Correo</th>
-
-        <th>Acción</th>
-        
+        <th>Numero Mesa</th>
+      
       </tr>
       <!-- contenidos de la tabla -->
       <tr v-for="item in usuarios" :key="item.id">
         <td>{{ item.name }}</td>
-        <td>{{ item.lastname }}</td>
-        <td>{{ item.phone }}</td>
+        <td>{{ item.numMesa }}</td>
+        <td>{{ item.fechaReserva }}</td>
         <td>{{ item.email }}</td>
         <td>
           <button @click="eliminarUsuario(item.id)">Eliminar</button>
@@ -39,6 +40,9 @@
                 <slot name="header"> default header </slot>
               </div>
 
+
+  <!-- es un formulario con ventana flotante " -->
+
               <form action="" class="colu1" method="GET">
                 <p>Nombre:</p>
                 <p>
@@ -50,18 +54,18 @@
                     required
                   />
                 </p>
-                <p>Apellido Paterno:</p>
+                <p>Fecha Reserva:</p>
                 <input
                   type="text"
-                  v-model="usuario.lastname"
-                  placeholder="Apellido"
+                  v-model="usuario.fechaReserva"
+                  placeholder="fecha reserva"
                   required
                 />
-                <p>Numero telefono:</p>
+                <p>Hora:</p>
                 <input
                   type="text"
-                  v-model="usuario.phone"
-                  placeholder="Numero Telefono"
+                  v-model="usuario.hora"
+                  placeholder=" Hora"
                   required
                 />
                 <p>Correo electronico</p>
@@ -71,33 +75,28 @@
                   placeholder="Correo"
                   required
                 />
-                <p>Contraseña:</p>
+                <p>Numero de Mesa:</p>
                 <input
-                  type="text"
-                  v-model="usuario.password"
-                  placeholder="Contraseña"
+                  type="integer"
+                  v-model="usuario.numMesa"
+                  placeholder="Numero de la Mesa"
                   required
                 />
                 <button @click="actualizarUsuario" type="submit" class="Full"> Actualizar </button>
                 <button class="modal-default-button" @click="showModal = false"> Cancelar</button>
                 <br />
-
                 <br />
               </form>
+
+
+
 
             </div>
           </div>
         </div>
-
       </transition>
-      
   </div>
-                  <br />
-
-                <br />
-                  <router-link class="admin" style="color: black"  to="/listaReserva"
-            >Lista de Reserva</router-link
-          ><br />
+  
   </div>
 </template>
 
@@ -114,10 +113,10 @@ export default {
     usuario: {
       id:0,
       name: "",
-      lastname: "",
-      phone: "",
+      hora: "",
+      numMesa: "",
       email: "",
-      password: "",
+      fechaReserva: "",
     },
   }),
   methods: {
